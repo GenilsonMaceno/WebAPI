@@ -21,6 +21,9 @@ namespace myapp.Entities
         [Column(TypeName = "DateTime")]
         public DateTime DateCreate { get; set; }
 
+        [Column(TypeName = "char(11)")]
+        public string CPF { get; set; }
+
         public virtual ICollection<Endereco> Endereco { get; set; }
 
 

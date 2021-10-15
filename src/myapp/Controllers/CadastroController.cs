@@ -99,5 +99,13 @@ namespace webapi.Controllers
             return Ok("Delete realizado com sucesso");
         }
 
+        [HttpGet("consultaendereco")]
+        public ActionResult<IEnumerable<Endereco>> GetEndereco(){
+            var endereco = _appDbContext.Tb_Endereco.AsNoTracking().OrderBy(e => e.EnderecoId).Include(c => c.Clientes).ToList();
+
+
+            return endereco;
+        }
+
     }
 }
