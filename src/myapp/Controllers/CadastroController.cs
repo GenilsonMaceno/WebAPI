@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using myapp.Context;
 using myapp.Entities;
+using myapp.Repository;
 using Newtonsoft.Json;
 
 namespace webapi.Controllers
@@ -15,34 +16,34 @@ namespace webapi.Controllers
     [ApiController]
     public class CadastroController : ControllerBase
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly ICadastroRepository _ICadastroRepository;
 
-        public CadastroController(AppDbContext appDbContext){
-            _appDbContext = appDbContext;
+        public CadastroController(ICadastroRepository iCadastroRepository){
+            _ICadastroRepository = iCadastroRepository;
         }
 
         public ActionResult<ICollection<Cliente>> Get(){
-            var clientes = _appDbContext.Tb_Cliente.AsNoTracking().OrderByDescending(c => c.ClienteId).ToList();
+            var clientes = _ICadastroRepository.Get().ToList();
 
             return clientes;
         }
 
-        [HttpGet("endereco")]
-        public ActionResult<IEnumerable<Cliente>> GetRelation(){
+        // [HttpGet("endereco")]
+        // public ActionResult<IEnumerable<Cliente>> GetRelation(){
 
-           var Clientes = _appDbContext.Tb_Cliente
-           .AsNoTracking()
-           .Include(e => e.Endereco)
-           .ToList();
+        //    var Clientes = _appDbContext.Tb_Cliente
+        //    .AsNoTracking()
+        //    .Include(e => e.Endereco)
+        //    .ToList();
 
-             return Clientes;
+        //      return Clientes;
 
-        }
+        // }
 
         [HttpGet("{id}")]
-        public ActionResult<Cliente> Get(int id){ 
+        public ActionResult<ICollection<Cliente>> Get(int id){ 
 
-            var Cliente = _appDbContext.Tb_Cliente.AsNoTracking().Where(c => c.ClienteId == id).FirstOrDefault();
+            var Cliente = _ICadastroRepository.GetById(id).ToList();
 
             return Cliente;
         }
@@ -56,10 +57,9 @@ namespace webapi.Controllers
                 item.DateCreate = DateTime.Now;
             }
 
-            _appDbContext.Tb_Cliente.Add(Cliente);
-            _appDbContext.SaveChanges();
+            _ICadastroRepository.add(Cliente);
 
-            return Ok();
+            return Ok("Cliente adicionado com sucesso");
         }
 
         [HttpPut("{id}")]
@@ -69,43 +69,39 @@ namespace webapi.Controllers
             {
                 return BadRequest();
             }
-            
 
-            var updateCliente = _appDbContext.Update(Cliente);
-            _appDbContext.SaveChanges();
+          _ICadastroRepository.Update(Cliente);
 
-            var viewJson = new {
-                updateCliente.Entity.ClienteId,
-                updateCliente.Entity.Nome,
-                updateCliente.Entity.Email,
-                updateCliente.Entity.Idade
-            };
+            // var updateCliente = _appDbContext.Update(Cliente);
+            // _appDbContext.SaveChanges();
 
-            var Json = JsonConvert.SerializeObject(viewJson);
+            // var viewJson = new {
+            //     updateCliente.Entity.ClienteId,
+            //     updateCliente.Entity.Nome,
+            //     updateCliente.Entity.Email,
+            //     updateCliente.Entity.Idade
+            // };
 
-            return Ok(Json);
+            // var Json = JsonConvert.SerializeObject(viewJson);
+
+            return Ok("Cliente Alterado com sucesso");
         }
 
         [HttpDelete("{id}")]
         public ActionResult<Cliente> Delete(int id){
 
-            // var Cliente = new Cliente{Id = id};
-
-            var address = _appDbContext.Tb_Cliente.FirstOrDefault(c => c.ClienteId == id);
-
-            _appDbContext.Remove(address);
-            _appDbContext.SaveChanges();
+           _ICadastroRepository.Delete(id);
 
             return Ok("Delete realizado com sucesso");
         }
 
-        [HttpGet("consultaendereco")]
-        public ActionResult<IEnumerable<Endereco>> GetEndereco(){
-            var endereco = _appDbContext.Tb_Endereco.AsNoTracking().OrderBy(e => e.EnderecoId).Include(c => c.Clientes).ToList();
+        // [HttpGet("consultaendereco")]
+        // public ActionResult<IEnumerable<Endereco>> GetEndereco(){
+        //     var endereco = _appDbContext.Tb_Endereco.AsNoTracking().OrderBy(e => e.EnderecoId).Include(c => c.Clientes).ToList();
 
 
-            return endereco;
-        }
+        //     return endereco;
+        // }
 
     }
 }

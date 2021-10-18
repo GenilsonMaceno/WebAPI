@@ -11,9 +11,9 @@ namespace myapp.Repository
     public interface ICadastroRepository
     {
         ICollection<Cliente> Get();
-        IQueryable<Cliente> GetById();
+        ICollection<Cliente> GetById(int id);
         void add(Cliente cliente);
         void Update(Cliente cliente);
-        void Delete(Cliente cliente);
+        void Delete(int id);
     }
 }
