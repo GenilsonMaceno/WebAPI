@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projeto\\webapi\\src\\myapp\\webapi.csproj": {}
+    "C:\\projeto\\webapi\\src\\myapp\\webapi.csproj": {}
   },
   "projects": {
-    "C:\\Projeto\\webapi\\src\\myapp\\webapi.csproj": {
+    "C:\\projeto\\webapi\\src\\myapp\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projeto\\webapi\\src\\myapp\\webapi.csproj",
+        "projectUniqueName": "C:\\projeto\\webapi\\src\\myapp\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "C:\\Projeto\\webapi\\src\\myapp\\webapi.csproj",
+        "projectPath": "C:\\projeto\\webapi\\src\\myapp\\webapi.csproj",
         "packagesPath": "C:\\mypackages\\packageReferences",
-        "outputPath": "C:\\Projeto\\webapi\\src\\myapp\\obj\\",
+        "outputPath": "C:\\projeto\\webapi\\src\\myapp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Projeto\\webapi\\NuGet.Config",
+          "C:\\projeto\\webapi\\NuGet.Config",
           "C:\\Users\\4bio.gmaceno\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -8,7 +8,7 @@ using myapp.Entities;
 
 namespace myapp.Repository
 {
-    public interface ICadastroRepository
+    public interface ICadastroRepository 
     {
         ICollection<Cliente> Get();
         ICollection<Cliente> GetById(int id);
