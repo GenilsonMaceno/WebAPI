@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using myapp.Context;
 using myapp.Repository;
+using myapp.Service;
 
 namespace webapi
 {
@@ -40,6 +41,7 @@ namespace webapi
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<ICadastroRepository, CadastroRepository>();
+            services.AddScoped<ICadastroService, CadastroService>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(option => 

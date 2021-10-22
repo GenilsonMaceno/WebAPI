@@ -11,7 +11,7 @@ namespace myapp.Repository
 {
     public class CadastroRepository : ICadastroRepository
     {
-        private AppDbContext _appDbContext;
+        private readonly AppDbContext _appDbContext;
 
         public CadastroRepository(AppDbContext appDbContext){
 

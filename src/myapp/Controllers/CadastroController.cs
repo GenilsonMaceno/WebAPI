@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using myapp.Context;
 using myapp.Entities;
 using myapp.Repository;
+using myapp.Service;
 using Newtonsoft.Json;
 
 namespace webapi.Controllers
@@ -16,34 +17,23 @@ namespace webapi.Controllers
     [ApiController]
     public class CadastroController : ControllerBase
     {
-        private readonly ICadastroRepository _ICadastroRepository;
+        private readonly ICadastroService _iCadastroService;
 
-        public CadastroController(ICadastroRepository iCadastroRepository){
-            _ICadastroRepository = iCadastroRepository;
+        public CadastroController(ICadastroService iCadastroService){
+            _iCadastroService = iCadastroService;
         }
 
         public ActionResult<ICollection<Cliente>> Get(){
-            var clientes = _ICadastroRepository.Get().ToList();
+            
+            var cliente =  _iCadastroService.Get().ToList();
 
-            return clientes;
+            return cliente;
         }
-
-        // [HttpGet("endereco")]
-        // public ActionResult<IEnumerable<Cliente>> GetRelation(){
-
-        //    var Clientes = _appDbContext.Tb_Cliente
-        //    .AsNoTracking()
-        //    .Include(e => e.Endereco)
-        //    .ToList();
-
-        //      return Clientes;
-
-        // }
 
         [HttpGet("{id}")]
         public ActionResult<ICollection<Cliente>> Get(int id){ 
 
-            var Cliente = _ICadastroRepository.GetById(id).ToList();
+            var Cliente = _iCadastroService.GetById(id).ToList();
 
             return Cliente;
         }
@@ -57,7 +47,7 @@ namespace webapi.Controllers
                 item.DateCreate = DateTime.Now;
             }
 
-            _ICadastroRepository.add(Cliente);
+            _iCadastroService.add(Cliente);
 
             return Ok("Cliente adicionado com sucesso");
         }
@@ -70,19 +60,7 @@ namespace webapi.Controllers
                 return BadRequest();
             }
 
-          _ICadastroRepository.Update(Cliente);
-
-            // var updateCliente = _appDbContext.Update(Cliente);
-            // _appDbContext.SaveChanges();
-
-            // var viewJson = new {
-            //     updateCliente.Entity.ClienteId,
-            //     updateCliente.Entity.Nome,
-            //     updateCliente.Entity.Email,
-            //     updateCliente.Entity.Idade
-            // };
-
-            // var Json = JsonConvert.SerializeObject(viewJson);
+          _iCadastroService.Update(Cliente);
 
             return Ok("Cliente Alterado com sucesso");
         }
@@ -90,18 +68,10 @@ namespace webapi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Cliente> Delete(int id){
 
-           _ICadastroRepository.Delete(id);
+           _iCadastroService.Delete(id);
 
             return Ok("Delete realizado com sucesso");
         }
-
-        // [HttpGet("consultaendereco")]
-        // public ActionResult<IEnumerable<Endereco>> GetEndereco(){
-        //     var endereco = _appDbContext.Tb_Endereco.AsNoTracking().OrderBy(e => e.EnderecoId).Include(c => c.Clientes).ToList();
-
-
-        //     return endereco;
-        // }
 
     }
 }
