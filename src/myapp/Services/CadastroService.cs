@@ -6,6 +6,7 @@ namespace myapp.Service
 {
     public class CadastroService : ICadastroService
     {
+        
         private readonly ICadastroRepository _iCadastroReposity;
 
         public CadastroService (ICadastroRepository iCadastroReposity){
@@ -35,6 +36,12 @@ namespace myapp.Service
         public void Update(Cliente cliente)
         {
             _iCadastroReposity.Update(cliente);
+        }
+
+        public string teste(){
+
+            return "teste";
+
         }
     }
 }
