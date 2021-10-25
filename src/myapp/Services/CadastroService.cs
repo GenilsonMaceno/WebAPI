@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using myapp.Entities;
+using myapp.Model;
 using myapp.Repository;
 
 namespace myapp.Service
@@ -23,7 +24,7 @@ namespace myapp.Service
             _iCadastroReposity.Delete(id);
         }
 
-        public ICollection<Cliente> Get()
+        public ICollection<Cadastro> Get()
         {
             return _iCadastroReposity.Get();
         }

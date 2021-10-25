@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using myapp.Context;
 using myapp.Entities;
+using myapp.Model;
+using Newtonsoft.Json;
 
 namespace myapp.Repository
 {
@@ -48,9 +50,18 @@ namespace myapp.Repository
             }
         }
 
-        public ICollection<Cliente> Get()
+        public ICollection<Cadastro> Get()
         {
-           return  _appDbContext.Tb_Cliente.AsNoTracking().OrderBy(c => c.ClienteId).Include(e => e.Endereco).ToList();
+                var Cadastro = (from cli in _appDbContext.Tb_Cliente
+                                join eds in _appDbContext.Tb_Endereco on cli.ClienteId equals eds.ClienteId
+                                select new Cadastro 
+                                {
+                                  Cliente = cli
+
+                                }
+                                ).AsNoTracking().ToList();
+
+           return Cadastro;
         }
 
         public ICollection<Cliente> GetById(int id)

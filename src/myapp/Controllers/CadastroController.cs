@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using myapp.Context;
 using myapp.Entities;
+using myapp.Model;
 using myapp.Repository;
 using myapp.Service;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace webapi.Controllers
             _iCadastroService = iCadastroService;
         }
 
-        public ActionResult<ICollection<Cliente>> Get(){
+        public ActionResult<ICollection<Cadastro>> Get(){
             
             var cliente =  _iCadastroService.Get().ToList();
 
