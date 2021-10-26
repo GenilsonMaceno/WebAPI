@@ -52,15 +52,10 @@ namespace myapp.Repository
 
         public ICollection<Cadastro> Get()
         {
-                var Cadastro = (from cli in _appDbContext.Tb_Cliente
-                                join eds in _appDbContext.Tb_Endereco on cli.ClienteId equals eds.ClienteId
-                                select new Cadastro 
-                                {
-                                  Cliente = cli
-
-                                }
-                                ).AsNoTracking().ToList();
-
+           var Cadastro =  (from cds in _appDbContext.Tb_Cliente.Include(e => e.Endereco)
+                            select new Cadastro{
+                                Cliente = cds
+                            }).AsNoTracking().ToList();
            return Cadastro;
         }
 

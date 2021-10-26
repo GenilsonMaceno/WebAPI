@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using myapp.Entities;
 
 namespace myapp.Model
