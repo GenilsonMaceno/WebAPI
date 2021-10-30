@@ -455,3 +455,7 @@ $RECYCLE.BIN/
 
 ##Ignore dll
 *.dll
+
+##Ignore General
+*.pub
+BIO360

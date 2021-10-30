@@ -52,11 +52,37 @@ namespace myapp.Repository
 
         public ICollection<Cadastro> Get()
         {
-           var Cadastro =  (from cds in _appDbContext.Tb_Cliente.Include(e => e.Endereco)
-                            select new Cadastro{
-                                Cliente = cds
-                            }).AsNoTracking().ToList();
-           return Cadastro;
+            try
+            {
+                var Clientes = (from cls in _appDbContext.Tb_Cliente
+                                select new Cadastro{
+                                    Cliente = cls
+                                }).AsNoTracking().ToList();
+
+                var Cadastro = new List<Cadastro>();
+                foreach (var item in Clientes)
+                {
+                    var Enderecos = _appDbContext.Tb_Endereco
+                                    .Where(c => c.ClienteId == item.Cliente.ClienteId)
+                                    .AsNoTracking()
+                                    .ToList();
+                                    
+                    item.Endereco = Enderecos;
+                    
+                    Cadastro.Add(item);
+                    
+                };    
+
+                 return Cadastro;               
+                 
+            }
+            catch (Exception)
+            {
+                
+                throw new Exception("Erro ao consultar o cadastro do cliente");
+            }
+
+          
         }
 
         public ICollection<Cliente> GetById(int id)
